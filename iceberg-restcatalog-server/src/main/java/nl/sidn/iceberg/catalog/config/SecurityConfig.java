@@ -30,29 +30,6 @@ public class SecurityConfig {
             .anyRequest().authenticated())
         .build();
 
-
-    // return http
-    // .csrf().disable()
-    // .addFilterAfter(authenticationFilter, BasicAuthenticationFilter.class)
-    // .authorizeHttpRequests(authorize -> authorize
-    // .anyRequest().authenticated()
-    // ).build();
-    //
-    // .addFilterAfter(authenticationFilter, BasicAuthenticationFilter.class)
-    // .csrf(AbstractHttpConfigurer::disable)
-    // .authorizeHttpRequests((authz) -> authz
-    // .requestMatchers("/**").hasRole("USER")
-    // .anyRequest().authenticated()
-    // ).build();
-
   }
-
-  // @Bean
-  // RoleHierarchy roleHierarchy() {
-  // RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-  // String hierarchy = "ROLE_ADMIN > ROLE_USER";
-  // roleHierarchy.setHierarchy(hierarchy);
-  // return roleHierarchy;
-  // }
 
 }
