@@ -33,7 +33,6 @@ public class AuthenticationFilter extends GenericFilterBean {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {
 
-    printRequestHeaders((HttpServletRequest) request);
     String apiKey = ((HttpServletRequest) request).getHeader(AUTH_TOKEN_HEADER_NAME);
 
     if (StringUtils.equals(StringUtils.replace(apiKey, AUTH_TOKEN_HBEARER_PREFIX, ""), token)) {
@@ -46,24 +45,6 @@ public class AuthenticationFilter extends GenericFilterBean {
       httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
   }
-  
-  public void printRequestHeaders(HttpServletRequest req) {
-    Enumeration names = req.getHeaderNames();
-    if(names == null) {
-      return;
-    }
-      while(names.hasMoreElements()) {
-        String name = (String) names.nextElement();
-         Enumeration values = req.getHeaders(name);
-         if(values != null) {
-           while(values.hasMoreElements()) {
-               String value = (String) values.nextElement();
-               System.out.println(name + " : " + value );
-           }
-         }
-      }
-  }
-
 
   public class ApiKeyAuthentication extends AbstractAuthenticationToken {
 
