@@ -17,55 +17,57 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RESTCatalogConfig {
-  
+
   @Value("${catalog.db.host}")
   private String dbHost;
-  
+
   @Value("${catalog.db.name}")
   private String dbName;
-  
+
   @Value("${catalog.db.user}")
   private String dbUser;
-  
+
   @Value("${catalog.db.password}")
   private String dbPassword;
-    
+
   @Value("${catalog.s3.bucket}")
   private String s3Bucket;
-  
+
   @Value("${catalog.s3.warehouse_dir}")
   private String s3Warehouse;
-  
+
   @Value("${catalog.s3.endpoint}")
   private String s3endpoint;
-  
+
   @Value("${catalog.s3.access_key}")
   private String s3AccessKey;
-  
+
   @Value("${catalog.s3.secret_key}")
-  private String s3SecretKey;  
-  
+  private String s3SecretKey;
+
   @Bean
   ServletRegistrationBean<RESTCatalogServlet> restCatalogServlet() {
-    
+
     RESTCatalogAdapter adapter = new RESTCatalogAdapter(backendCatalog());
-    
-      ServletRegistrationBean<RESTCatalogServlet> bean = new ServletRegistrationBean<>(
-          new RESTCatalogServlet(adapter));
-      bean.setLoadOnStartup(1);
-      return bean;
+
+    ServletRegistrationBean<RESTCatalogServlet> bean = new ServletRegistrationBean<>(
+        new RESTCatalogServlet(adapter));
+    bean.setLoadOnStartup(1);
+    return bean;
   }
-  
-  private Catalog backendCatalog() {
+
+  @Bean
+  Catalog backendCatalog() {
     Map<String, String> catalogProperties = new HashMap<String, String>();
 
     catalogProperties.put(CatalogProperties.CATALOG_IMPL, "org.apache.iceberg.jdbc.JdbcCatalog");
     catalogProperties.put(CatalogProperties.URI, "jdbc:postgresql://" + dbHost + ":5432/" + dbName);
     catalogProperties.put(JdbcCatalog.PROPERTY_PREFIX + "user", dbUser);
     catalogProperties.put(JdbcCatalog.PROPERTY_PREFIX + "password", dbPassword);
-    catalogProperties.put(CatalogProperties.WAREHOUSE_LOCATION, "s3://" + s3Bucket + "/" + s3Warehouse);
+    catalogProperties.put(CatalogProperties.WAREHOUSE_LOCATION,
+        "s3://" + s3Bucket + "/" + s3Warehouse);
     catalogProperties.put(CatalogProperties.FILE_IO_IMPL, "org.apache.iceberg.aws.s3.S3FileIO");
-    if(StringUtils.isNotBlank(s3endpoint)) {
+    if (StringUtils.isNotBlank(s3endpoint)) {
       catalogProperties.put(S3FileIOProperties.ENDPOINT, s3endpoint);
     }
     catalogProperties.put(S3FileIOProperties.ACCESS_KEY_ID, s3AccessKey);

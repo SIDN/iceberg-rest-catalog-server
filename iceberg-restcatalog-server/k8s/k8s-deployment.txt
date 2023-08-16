@@ -1,0 +1,6 @@
+
+
+# Env vars required to enable Kubernetes configmaps
+
+SPRING_CLOUD_KUBERNETES_CONFIG_ENABLED
+SPRING_CLOUD_KUBERNETES_ENABLED

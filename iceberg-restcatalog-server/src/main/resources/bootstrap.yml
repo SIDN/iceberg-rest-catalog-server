@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: iceberg-catalog-server-service
+  cloud:
+    kubernetes:
+      config:
+        enabled: false
+      enabled: false
