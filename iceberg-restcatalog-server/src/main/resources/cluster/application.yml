@@ -1,17 +1,17 @@
 catalog:
   db:
-    host: 'labs-db1.sidnlabs.nl'
+    host: 'localhost'
     name: 'icebergdb'
     user: 'iceberg'
-    password: 'fOez0eC6TxgaCufnIEPS'
+    password: ''
 
 
   s3:
     bucket: 'maarten-dev'
     warehouse_dir: 'warehouse'
-    endpoint: 'https://s3-lb.sidnlabs.nl:9000'
-    access_key: 'FnrCQc3JQXEM1OwAtrSg'
-    secret_key: 'dNITppQxnZbjIHs1AOejZuPDnNOG5emYHhbj5ar2'
+    endpoint: 'https://localhost:9000'
+    access_key: ''
+    secret_key: ''
   security:
     token: 'secret-123'
   
