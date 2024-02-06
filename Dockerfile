@@ -19,14 +19,5 @@ WORKDIR /app
 # Copy the application code to the container
 COPY target/iceberg-restcatalog-server-0.0.1-SNAPSHOT.jar /app/iceberg-restcatalog-server.jar
 
-# Run any necessary commands
-#RUN mvn clean install
-
 # Set the entrypoint command
 CMD ["java", "-jar", "/app/iceberg-restcatalog-server.jar"]
-
-
-#FROM openjdk:21-jdk-slim-bookworm
-##MAINTAINER sidnlabs.nl
-#COPY target/iceberg-restcatalog-server-0.0.1-SNAPSHOT.jar iceberg-restcatalog-server.jar
-#ENTRYPOINT ["java","-jar","/iceberg-restcatalog-server.jar"]
