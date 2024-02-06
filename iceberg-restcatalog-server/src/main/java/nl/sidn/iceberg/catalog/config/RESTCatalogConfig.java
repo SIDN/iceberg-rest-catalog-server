@@ -2,6 +2,7 @@ package nl.sidn.iceberg.catalog.config;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.CatalogUtil;
@@ -18,11 +19,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RESTCatalogConfig {
 
-  @Value("${catalog.db.host}")
-  private String dbHost;
-
-  @Value("${catalog.db.name}")
-  private String dbName;
+  @Value("${catalog.db.url}")
+  private String dbUrl;
 
   @Value("${catalog.db.user}")
   private String dbUser;
@@ -39,21 +37,21 @@ public class RESTCatalogConfig {
   @Value("${catalog.s3.endpoint}")
   private String s3endpoint;
 
-  @Value("${catalog.s3.access_key}")
+  @Value("${catalog.s3.access-key}")
   private String s3AccessKey;
 
-  @Value("${catalog.s3.secret_key}")
+  @Value("${catalog.s3.secret-key}")
   private String s3SecretKey;
 
   @Bean
   ServletRegistrationBean<RESTCatalogServlet> restCatalogServlet() {
 
-    RESTCatalogAdapter adapter = new RESTCatalogAdapter(backendCatalog());
+	   RESTCatalogAdapter adapter = new RESTCatalogAdapter(backendCatalog());
 
-    ServletRegistrationBean<RESTCatalogServlet> bean = new ServletRegistrationBean<>(
-        new RESTCatalogServlet(adapter));
-    bean.setLoadOnStartup(1);
-    return bean;
+	    ServletRegistrationBean<RESTCatalogServlet> bean = new ServletRegistrationBean<>(
+	        new RESTCatalogServlet(adapter));
+	    bean.setLoadOnStartup(1);
+	    return bean;
   }
 
   @Bean
@@ -61,7 +59,7 @@ public class RESTCatalogConfig {
     Map<String, String> catalogProperties = new HashMap<String, String>();
 
     catalogProperties.put(CatalogProperties.CATALOG_IMPL, "org.apache.iceberg.jdbc.JdbcCatalog");
-    catalogProperties.put(CatalogProperties.URI, "jdbc:postgresql://" + dbHost + ":5432/" + dbName);
+    catalogProperties.put(CatalogProperties.URI, dbUrl);
     catalogProperties.put(JdbcCatalog.PROPERTY_PREFIX + "user", dbUser);
     catalogProperties.put(JdbcCatalog.PROPERTY_PREFIX + "password", dbPassword);
     catalogProperties.put(CatalogProperties.WAREHOUSE_LOCATION,

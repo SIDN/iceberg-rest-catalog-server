@@ -1,6 +1,6 @@
 spring:
   application:
-    name: iceberg-catalog-server-service
+    name: iceberg-catalog-server
   cloud:
     kubernetes:
       config:
