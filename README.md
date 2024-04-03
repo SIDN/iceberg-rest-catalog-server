@@ -8,7 +8,7 @@ Applications such as [ENTRADA2](https://github.com/SIDN/entrada2) may use this R
 
 ```
 export TOOL_VERSION=0.1.1
-mvn package && docker build --tag=iceberg-rest-catalog-server:$TOOL_VERSION .
+mvn package && docker build --platform linux/amd64 --tag=sidnlabs/iceberg-rest-catalog-server:$TOOL_VERSION .
 ```
 
 # Getting started
